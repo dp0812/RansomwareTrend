@@ -1,5 +1,6 @@
 package entities;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  * To holds all the possible attribute of a recored Cve in the KEV list, in the appropriate data type. 
  */
@@ -14,6 +15,7 @@ public class Cve {
     private LocalDate dueDate; 
     private String knownRansomwareCampaignUse;//this is Known or Unknown.
     private String notes;
+    /** potentially empty (have yet been mapped) */
     private String cwes; //visual
     
     public Cve(){}
@@ -22,22 +24,27 @@ public class Cve {
      String vendorProject,
      String product,
      String vulnerabilityName,
-     LocalDate dateAdded,
+     String uDateAdded,
      String shortDescription,
      String requiredAction,
-     LocalDate dueDate,
+     String uDueDate,
      String knownRansomwareCampaignUse,
      String notes,
      String cwes)
     {
+        //parse String to LocalDate objects. 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate formattedDateAdded = LocalDate.parse(uDateAdded, formatter);
+        LocalDate formattedDueDate = LocalDate.parse(uDueDate, formatter);
+
         this.cveID = cveID;
         this.vendorProject = vendorProject;
         this.product = product;
         this.vulnerabilityName = vulnerabilityName;
-        this.dateAdded = dateAdded;
+        this.dateAdded = formattedDateAdded;
         this.shortDescription = shortDescription;
         this.requiredAction = requiredAction;
-        this.dueDate = dueDate;
+        this.dueDate = formattedDueDate;
         this.knownRansomwareCampaignUse = knownRansomwareCampaignUse;
         this.notes = notes;
         this.cwes = cwes;

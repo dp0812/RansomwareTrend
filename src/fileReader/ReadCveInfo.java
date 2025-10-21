@@ -1,8 +1,6 @@
 package fileReader;
 
 import java.io.InputStreamReader;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +10,8 @@ import java.util.LinkedHashMap;
 import entities.Cve;
 
 /**
- * Reads data from csv, created cve objects, and provides processed list of file lines.
+ * Reads data from csv, created cve objects, create 2 ArrayList representation: 
+ * One contains the cve objects, the other contains String array form of the dataset. 
  */
 public class ReadCveInfo implements CsvReader{
     /* stores any file lines that are read */
@@ -63,10 +62,10 @@ public class ReadCveInfo implements CsvReader{
     }
 
     /**
-     * Parsing input from file, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes. 
+     * Parsing input from file, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes "". 
      * @param input some String input, presumably read from file.
      * @param delimiter a character delimiter. Example: comma ','
-     * @return  String array 
+     * @return String array 
      */
     private String[] simpleParser(String input, char delimiter){
         ArrayList<String> result = new ArrayList<String>();
@@ -87,14 +86,13 @@ public class ReadCveInfo implements CsvReader{
     /** Processes the file content list to create cve objects for each line and update the processed file list.  */
     private void processList(){
         for (String[] someLine : fileContent){
-//            Cve cveObject = new Cve();
             Cve cveObject = createCveObject(someLine);
             cveArrayList.add(cveObject);
         }
     }
 
     /**
-     * Initialize the attribute categoryTable:{index of data} with category as a string, and 
+     * Initialize the attribute categoryTable: key: category name, value: index of data.  
      * index of data is the index of required data in the rows excluding the category row in the csv. 
      * categoryTable.get(key) with key as a string (a category) will return the correct index in the csv
      * @param arr string array representation of the category name in the csv
@@ -114,22 +112,15 @@ public class ReadCveInfo implements CsvReader{
         //spelling of keys: 
         //cveID,vendorProject,product,vulnerabilityName,dateAdded,shortDescription,requiredAction,
         //dueDate,knownRansomwareCampaignUse,notes,cwes
-
-        String uDateAdded = someLine[categoryTable.get("dateAdded").intValue()];
-        String uDueDate = someLine[categoryTable.get("dueDate").intValue()];    
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fDateAdded = LocalDate.parse(uDateAdded, formatter);
-        LocalDate fDueDate = LocalDate.parse(uDueDate, formatter);
-        //suggestion: perhaps try to move the datetime formatter to a utility class or something. 
         Cve cveObject = new Cve(
             someLine[categoryTable.get("cveID").intValue()],
             someLine[categoryTable.get("vendorProject").intValue()],
             someLine[categoryTable.get("product").intValue()],
             someLine[categoryTable.get("vulnerabilityName").intValue()],
-            fDateAdded,
+            someLine[categoryTable.get("dateAdded").intValue()],
             someLine[categoryTable.get("shortDescription").intValue()],
             someLine[categoryTable.get("requiredAction").intValue()],
-            fDueDate,
+            someLine[categoryTable.get("dueDate").intValue()],
             someLine[categoryTable.get("knownRansomwareCampaignUse").intValue()],
             someLine[categoryTable.get("notes").intValue()],
             someLine[categoryTable.get("cwes").intValue()]
