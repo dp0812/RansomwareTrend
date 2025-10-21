@@ -72,19 +72,19 @@ public class Cve implements WritableObject {
         System.out.println("notes: " + object.notes);
     }
     /**
-     * Get a String array of the category of the object - for testing purpose.  
+     * Get a String array of the category of the objects.
      * @param object extract visualization info from this object.
      * @return String array 
      */
     public static String[] getVisualizationInfoArray(Cve object){
         String[] visualizationInfo = {
-            object.cveID, 
-            object.vulnerabilityName, 
-            object.dateAdded.toString(), 
-            object.shortDescription,
-            object.requiredAction,
-            object.knownRansomwareCampaignUse,
-            object.cwes
+            "cveID",
+            "vulnerabilityName",
+            "dateAdded",
+            "shortDescription",
+            "requiredAction",
+            "knownRansomwareCampaignUse",
+            "cwes"        
         };
         return visualizationInfo;
     }
