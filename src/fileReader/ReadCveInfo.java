@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import entities.Cve;
+import utilities.Parser;
 
 /**
  * Reads data from csv, created cve objects, create 2 ArrayList representation: 
@@ -18,8 +19,11 @@ public class ReadCveInfo implements CsvReader{
     private ArrayList <String[]> fileContent = new ArrayList<>();
     /* stores cve objects taken from the file read */
     private ArrayList <Cve> cveArrayList = new ArrayList<>();
+    /* stores writable version of cve objects taken from the file read */
+    private ArrayList <WritableObject> writableCveArrayList = new ArrayList<>();
     /* for creating the objects no matter how much the order of the columns in the csv has changed */
     private LinkedHashMap <String, Integer> categoryTable = new LinkedHashMap<>();
+
 
     public ReadCveInfo(){}
 
@@ -33,11 +37,11 @@ public class ReadCveInfo implements CsvReader{
             BufferedReader input = new BufferedReader( new InputStreamReader(inputStream))){
             String line ="";
             String skipFirstLine = input.readLine(); //this is the category line
-            String[] categoryArr = simpleParser(skipFirstLine, ',');
+            String[] categoryArr = Parser.simpleParser(skipFirstLine, ',');
             setCategoryTableContentForReadFile(categoryArr);
         
             while ((line = input.readLine())!= null){
-                String[] arr = simpleParser(line, ',');
+                String[] arr = Parser.simpleParser(line, ',');
                 fileContent.add(arr);
             }
 
@@ -64,33 +68,27 @@ public class ReadCveInfo implements CsvReader{
         return this.cveArrayList;
     }
 
-    /**
-     * Parsing input from file, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes "". 
-     * @param input some String input, presumably read from file.
-     * @param delimiter a character delimiter. Example: comma ','
-     * @return String array 
+    /** 
+     * Gets the writable list of writable cve objects (supertype var refers to subtype object).
+     * @return the ArrayList of WritableObject 
      */
-    private String[] simpleParser(String input, char delimiter){
-        ArrayList<String> result = new ArrayList<String>();
-        int start = 0;
-        boolean inQuotes = false;
-        for (int current = 0; current < input.length(); current++) {
-            if (input.charAt(current) == '\"') inQuotes = !inQuotes; // toggle state
-            else if (input.charAt(current) == delimiter && !inQuotes) {
-                result.add(input.substring(start, current));
-                start = current + 1;
-            }
-        }
-        result.add(input.substring(start));
-        String[] arr = new String[result.size()];
-        return result.toArray(arr);
+    public final ArrayList<WritableObject> getWritableCveArrayList(){
+        processList();
+        return this.writableCveArrayList;
+    }
+
+    public final String[] getCategoryLine(){
+        return cveArrayList.get(0).getInfoArr();
     }
 
     /** Processes the file content list to create cve objects for each line and update the processed file list.  */
     private void processList(){
         for (String[] someLine : fileContent){
             Cve cveObject = createCveObject(someLine);
+            WritableObject writableCveObject = createCveObject(someLine);
             cveArrayList.add(cveObject);
+            writableCveArrayList.add(writableCveObject);
+
         }
     }
 
