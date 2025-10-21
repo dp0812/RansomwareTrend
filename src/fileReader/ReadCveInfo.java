@@ -28,8 +28,9 @@ public class ReadCveInfo implements CsvReader{
      * @param fileName file name of the data csv
      */
     public final void readCsvFile(String fileName)   {    
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);   
-        try(BufferedReader input = new BufferedReader( new InputStreamReader(inputStream))){
+   
+        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+            BufferedReader input = new BufferedReader( new InputStreamReader(inputStream))){
             String line ="";
             String skipFirstLine = input.readLine(); //this is the category line
             String[] categoryArr = simpleParser(skipFirstLine, ',');
@@ -40,8 +41,10 @@ public class ReadCveInfo implements CsvReader{
                 fileContent.add(arr);
             }
 
-        } catch (IOException error){
-            System.out.println("Error: " + error);
+        }catch (NullPointerException errNull) {
+            System.out.println("Unintialized resouce for InputStream: " + errNull);
+        }catch (IOException errIO){
+            System.out.println("Failed to open file: " + errIO);
         }
     }
     

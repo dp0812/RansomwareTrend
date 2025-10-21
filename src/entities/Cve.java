@@ -1,10 +1,12 @@
 package entities;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import fileReader.WritableObject;
 /**
  * To holds all the possible attribute of a recored Cve in the KEV list, in the appropriate data type. 
  */
-public class Cve {
+public class Cve implements WritableObject {
     private String cveID; //visual
     private String vendorProject; 
     private String product;
@@ -50,9 +52,6 @@ public class Cve {
         this.cwes = cwes;
     }
 
-    public void setCveID(String o){
-        this.cveID = o;
-    }
     /**
      * Print both info to be visualized and non visualized info - for testing purpose. 
      * @param object object which info will be printed.
@@ -73,9 +72,7 @@ public class Cve {
         System.out.println("notes: " + object.notes);
     }
     /**
-     * Get a String array that contains: that contains cveID, vulnerabilityName, dateAdded, shortDescription, 
-     * requiredAction, knownRansomwareCampaignUse, cwes 
-     * in this exact order. 
+     * Get a String array of the category of the object - for testing purpose.  
      * @param object extract visualization info from this object.
      * @return String array 
      */
@@ -88,6 +85,25 @@ public class Cve {
             object.requiredAction,
             object.knownRansomwareCampaignUse,
             object.cwes
+        };
+        return visualizationInfo;
+    }
+    /**
+     * Get a String array that contains: that contains cveID, vulnerabilityName, dateAdded, shortDescription, 
+     * requiredAction, knownRansomwareCampaignUse, cwes 
+     * in this exact order. 
+     * Use for writing info to file. 
+     * @return String array 
+     */
+    public String[] getInfoArr(){
+        String[] visualizationInfo = {
+            this.cveID, 
+            this.vulnerabilityName, 
+            this.dateAdded.toString(), 
+            this.shortDescription,
+            this.requiredAction,
+            this.knownRansomwareCampaignUse,
+            this.cwes
         };
         return visualizationInfo;
     }
