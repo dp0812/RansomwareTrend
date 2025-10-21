@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class Cve {
     private String cveID; //visual
     private String vendorProject; 
+    private String product;
     private String vulnerabilityName; //visual
     private LocalDate dateAdded; //visual
     private String shortDescription; //visual
@@ -19,6 +20,7 @@ public class Cve {
     public Cve(     
      String cveID,
      String vendorProject,
+     String product,
      String vulnerabilityName,
      LocalDate dateAdded,
      String shortDescription,
@@ -30,6 +32,7 @@ public class Cve {
     {
         this.cveID = cveID;
         this.vendorProject = vendorProject;
+        this.product = product;
         this.vulnerabilityName = vulnerabilityName;
         this.dateAdded = dateAdded;
         this.shortDescription = shortDescription;
@@ -50,6 +53,7 @@ public class Cve {
     public static void printInfo(Cve object){
         System.out.println("Fields to be visualized:");
         System.out.println("cveId = " + object.cveID);
+        System.out.println("product = " + object.product);
         System.out.println("vulnerabilityName = " + object.vulnerabilityName);
         System.out.println("dateAdded = " + object.dateAdded);
         System.out.println("shortDescription = " + object.shortDescription);
