@@ -24,20 +24,18 @@ public class ReadCveInfo implements CsvReader{
 
     /**
      * Accepts a file name, read from said csv file using BufferedReader and add the content to ArrayList of String array. 
-     * ArrayList size can be expand at constant time and add for n elements at O(n) time, which is why it is choosen as the implementation. 
-     * @param fileName file name of the scientist data csv
+     * @param fileName file name of the data csv
      */
     public final void readCsvFile(String fileName)   {    
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);   
         try(BufferedReader input = new BufferedReader( new InputStreamReader(inputStream))){
             String line ="";
-            String skipFirstLine = input.readLine();//this is the category line. no point to create this as an object.
-            String[] categoryArr = skipFirstLine.split(",");
+            String skipFirstLine = input.readLine(); //this is the category line
+            String[] categoryArr = simpleParser(skipFirstLine, ',');
             setCategoryTableContentForReadFile(categoryArr);
         
             while ((line = input.readLine())!= null){
-                //the problem of , enclosed in "" must be resolved here. 
-                String[] arr =line.split(","); 
+                String[] arr = simpleParser(line, ',');
                 fileContent.add(arr);
             }
 
@@ -54,17 +52,39 @@ public class ReadCveInfo implements CsvReader{
     }
 
     /** 
-     * Gets the processed list of space objects.
-     * @return the list of space objects
+     * Gets the processed list of cve objects.
+     * @return the ArrayList of cve objects
      */
     public final ArrayList<Cve> getProccessedList(){
         processList();
         return this.processedFile;
     }
 
-    /** Processes the file content list to create space objects for each line and update the processed file list.  */
+    /**
+     * Parsing input from file, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes. 
+     * @param input some String input, presumably read from file.
+     * @param delimiter a character delimiter. Example: comma ','
+     * @return  String array 
+     */
+    private String[] simpleParser(String input, char delimiter){
+        ArrayList<String> result = new ArrayList<String>();
+        int start = 0;
+        boolean inQuotes = false;
+        for (int current = 0; current < input.length(); current++) {
+            if (input.charAt(current) == '\"') inQuotes = !inQuotes; // toggle state
+            else if (input.charAt(current) == delimiter && !inQuotes) {
+                result.add(input.substring(start, current));
+                start = current + 1;
+            }
+        }
+        result.add(input.substring(start));
+        String[] arr = new String[result.size()];
+        return result.toArray(arr);
+    }
+
+    /** Processes the file content list to create cve objects for each line and update the processed file list.  */
     private void processList(){
-        //spaceSth has datatype of Superclass SpaceObject, but referencing to subclass object. Method will behaves like a subclass object if invoke. 
+        //cveSth has datatype of Superclass cveObject, but referencing to subclass object. Method will behaves like a subclass object if invoke. 
         for (String[] someLine : fileContent){
             Cve cveObject = new Cve();
             createCveObject(cveObject, someLine);
