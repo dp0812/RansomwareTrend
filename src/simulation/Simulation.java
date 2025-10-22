@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import entities.Cve;
 public class Simulation {
     ReadCveInfo dataset = new ReadCveInfo();
-    Logger reportWRiter = new Logger();
+    
 
     public Simulation(String testFileName, String writeFileName){
         dataset.readCsvFile(testFileName);
-        reportWRiter.writeVisualizationData(dataset.getWritableCveArrayList(), dataset.getCategoryLine(),writeFileName );
+        Logger.writeVisualizationData(dataset.getWritableCveArrayList(), dataset.getCategoryLine(),writeFileName );
     }
     public void run(){
         printCveList();

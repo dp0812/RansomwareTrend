@@ -76,9 +76,12 @@ public class ReadCveInfo implements CsvReader{
         processList();
         return this.writableCveArrayList;
     }
-
+    /**
+     * 
+     * @return String array containing name of the categories: does not guarantee to remove whitespace.
+     */
     public final String[] getCategoryLine(){
-        return cveArrayList.get(0).getInfoArr();
+        return Cve.getVisualizationInfoArray(cveArrayList.get(0));
     }
 
     /** Processes the file content list to create cve objects for each line and update the processed file list.  */
