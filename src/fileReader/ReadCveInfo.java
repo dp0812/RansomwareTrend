@@ -55,7 +55,7 @@ public class ReadCveInfo implements CsvReader{
     /** 
      * @return the file content list
      */
-    public final ArrayList<String[]> getfileContent(){
+    public final ArrayList<String[]> getFileContent(){
         return this.fileContent;
     }
 

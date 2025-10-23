@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Parser {
     
     /**
-     * Parsing input from file, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes "". 
+     * Parsing input from given String, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes "". 
      * @param input some String input, presumably read from file.
-     * @param delimiter a character delimiter. Example: comma ','
-     * @return String array 
+     * @param delimiter a character delimiter. Example: comma ',' file separator - windows '\\', unix '/'
+     * @return String array with each element enclosed in delimiter as a separate String.
      */
     public static String[] simpleParser(String input, char delimiter){
         ArrayList<String> result = new ArrayList<String>();

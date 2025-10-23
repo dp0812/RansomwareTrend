@@ -14,12 +14,14 @@ public class Simulation {
         Logger.writeVisualizationData(dataset.getWritableCveArrayList(), dataset.getCategoryLine(),writeFileName );
     }
     public void run(){
-        printCveList();
+        System.out.println("Run.");
+        //printCveList();
+        //printStringArr();
     }
 
     /** Test */
     @SuppressWarnings("unused") private void printStringArr(){
-        ArrayList<String[]> arrList = dataset.getfileContent();
+        ArrayList<String[]> arrList = dataset.getFileContent();
         for (String[] arr: arrList){
             for (String sth: arr){
                 System.out.println(sth);
@@ -30,7 +32,7 @@ public class Simulation {
     }
 
     /** Test */
-    private void printCveList(){
+    @SuppressWarnings("unused") private void printCveList(){
         ArrayList<Cve> cveArrList = dataset.getCveArrayList();
         String[] cats = Cve.getVisualizationInfoArray(cveArrList.get(0));
         for (String c: cats) System.out.print(c + " , ");
