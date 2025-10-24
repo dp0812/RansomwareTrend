@@ -6,7 +6,7 @@ package fileReader;
 public interface WritableObject {
     /**
      * Standard for the object which info we want to write to file. 
-     * @return a view of the object info, in array form. 
+     * @return a view of the object info, as an Array of String. 
      */
     public abstract String[] getInfoArr();
 }

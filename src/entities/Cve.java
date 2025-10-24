@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 import fileReader.WritableObject;
 /**
- * To holds all the possible attribute of a recored Cve in the KEV list, in the appropriate data type. 
+ * To holds all the possible attribute of a recorded Cve in the KEV list, in the appropriate data type. 
  */
 public class Cve implements WritableObject {
     private String cveID; //visual
@@ -22,18 +22,18 @@ public class Cve implements WritableObject {
     
     public Cve(){}
     public Cve(     
-     String cveID,
-     String vendorProject,
-     String product,
-     String vulnerabilityName,
-     String uDateAdded,
-     String shortDescription,
-     String requiredAction,
-     String uDueDate,
-     String knownRansomwareCampaignUse,
-     String notes,
-     String cwes)
-    {
+        String cveID,
+        String vendorProject,
+        String product,
+        String vulnerabilityName,
+        String uDateAdded,
+        String shortDescription,
+        String requiredAction,
+        String uDueDate,
+        String knownRansomwareCampaignUse,
+        String notes,
+        String cwes)
+        {
         //parse String to LocalDate objects. 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate formattedDateAdded = LocalDate.parse(uDateAdded, formatter);
@@ -89,14 +89,13 @@ public class Cve implements WritableObject {
         return visualizationInfo;
     }
     /**
-     * Get a String array that contains: that contains cveID, vulnerabilityName, dateAdded, shortDescription, 
+     * Get a String array that contains, in this exact order: 
+     * cveID, vulnerabilityName, dateAdded, shortDescription, 
      * requiredAction, knownRansomwareCampaignUse, cwes 
-     * in this exact order. 
      * Use for writing info to file. 
-     * @return String array 
      */
     public String[] getInfoArr(){
-        String[] visualizationInfo = {
+        String[] infoArr = {
             this.cveID, 
             this.vulnerabilityName, 
             this.dateAdded.toString(), 
@@ -105,7 +104,7 @@ public class Cve implements WritableObject {
             this.knownRansomwareCampaignUse,
             this.cwes
         };
-        return visualizationInfo;
+        return infoArr;
     }
 
 }

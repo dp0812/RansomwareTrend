@@ -11,33 +11,30 @@ import entities.Cve;
 import utilities.Parser;
 
 /**
- * Reads data from csv, created cve objects, create 2 ArrayList representation: 
- * One contains the cve objects, the other contains String array form of the dataset. 
+ * Reads data from csv, created cve objects, create 3 ArrayList representation: 
+ * one contains the cve objects, 
+ * one contains String array form of the dataset,
+ * one contains the writable objects (use in writing to file).
  */
 public class ReadCveInfo implements CsvReader{
-    /* stores any file lines that are read */
+    /** stores any file lines that are read */
     private ArrayList <String[]> fileContent = new ArrayList<>();
-    /* stores cve objects taken from the file read */
+    /** stores cve objects taken from the file read */
     private ArrayList <Cve> cveArrayList = new ArrayList<>();
-    /* stores writable version of cve objects taken from the file read */
+    /** stores writable version of cve objects taken from the file read */
     private ArrayList <WritableObject> writableCveArrayList = new ArrayList<>();
-    /* for creating the objects no matter how much the order of the columns in the csv has changed */
+    /** for creating the objects no matter how much the order of the columns in the csv has changed */
     private LinkedHashMap <String, Integer> categoryTable = new LinkedHashMap<>();
-
-
-    public ReadCveInfo(){}
 
     /**
      * Accepts a file name, read from said csv file using BufferedReader and add the content to ArrayList of String array. 
-     * @param fileName file name of the data csv
      */
-    public final void readCsvFile(String fileName)   {    
-   
-        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+    public final void readCsvFile(String filePath)   {    
+        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
             BufferedReader input = new BufferedReader( new InputStreamReader(inputStream))){
             String line ="";
-            String skipFirstLine = input.readLine(); //this is the category line
-            String[] categoryArr = Parser.simpleParser(skipFirstLine, ',');
+            String categoryLine = input.readLine(); //this is the category line
+            String[] categoryArr = Parser.simpleParser(categoryLine, ',');
             setCategoryTableContentForReadFile(categoryArr);
         
             while ((line = input.readLine())!= null){
@@ -52,9 +49,7 @@ public class ReadCveInfo implements CsvReader{
         }
     }
     
-    /** 
-     * @return the file content list
-     */
+    /** Simple per line information from file. */
     public final ArrayList<String[]> getFileContent(){
         return this.fileContent;
     }
@@ -68,23 +63,20 @@ public class ReadCveInfo implements CsvReader{
         return this.cveArrayList;
     }
 
-    /** 
-     * Gets the writable list of writable cve objects (supertype var refers to subtype object).
-     * @return the ArrayList of WritableObject 
-     */
-    public final ArrayList<WritableObject> getWritableCveArrayList(){
+    /** Gets the writable list of writable cve objects. */
+    public final ArrayList<WritableObject> getWritableArrayList(){
         processList();
         return this.writableCveArrayList;
     }
-    /**
-     * 
-     * @return String array containing name of the categories: does not guarantee to remove whitespace.
-     */
+    /** Gets the Cve category line. */
     public final String[] getCategoryLine(){
         return Cve.getVisualizationInfoArray(cveArrayList.get(0));
     }
 
-    /** Processes the file content list to create cve objects for each line and update the processed file list.  */
+    /** 
+     * Processes the file content list to create cve objects for each line and update 2 arrayList: 
+     * cveArrayList and writableCveArrayList
+     */    
     private void processList(){
         for (String[] someLine : fileContent){
             Cve cveObject = createCveObject(someLine);
