@@ -107,4 +107,14 @@ public class Cve implements WritableObject {
         return infoArr;
     }
 
+    @Override
+    public String toString(){
+        String result ="";
+        String[] infoArr = getInfoArr();
+        for (String s: infoArr){
+            result+= (s + "\n");
+        }
+        return result;
+    }
+
 }

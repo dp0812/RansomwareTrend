@@ -46,6 +46,8 @@ public class ReadCveInfo implements CsvReader{
             System.out.println("Unintialized resouce for InputStream: " + errNull);
         }catch (IOException errIO){
             System.out.println("Failed to open file: " + errIO);
+        } finally{
+            processList();
         }
     }
     
@@ -59,13 +61,11 @@ public class ReadCveInfo implements CsvReader{
      * @return the ArrayList of cve objects
      */
     public final ArrayList<Cve> getCveArrayList(){
-        processList();
         return this.cveArrayList;
     }
 
     /** Gets the writable list of writable cve objects. */
     public final ArrayList<WritableObject> getWritableArrayList(){
-        processList();
         return this.writableCveArrayList;
     }
     /** Gets the Cve category line. */
@@ -78,12 +78,15 @@ public class ReadCveInfo implements CsvReader{
      * cveArrayList and writableCveArrayList
      */    
     private void processList(){
+        //remove outdateda info. 
+        cveArrayList.clear();
+        writableCveArrayList.clear();
+        //process newly obtained info. 
         for (String[] someLine : fileContent){
             Cve cveObject = createCveObject(someLine);
             WritableObject writableCveObject = createCveObject(someLine);
             cveArrayList.add(cveObject);
             writableCveArrayList.add(writableCveObject);
-
         }
     }
 
