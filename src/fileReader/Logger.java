@@ -25,10 +25,7 @@ public class Logger {
     public static void writeVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
         WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
         String catS = String.join(",",categoryLine);
-        String defaultFilePath = defaultDirectory + File.separator + fileName;
-        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
-        if (tempDir.length > 1) defaultFilePath = fileName;
-        writeInfoToFile(objectToWriteList, writeLambda, defaultFilePath, catS);
+        writeInfoToFile(objectToWriteList, writeLambda, createSuitableFilePath(fileName), catS);
     }
 
     /**
@@ -36,7 +33,7 @@ public class Logger {
      * Will append to the content in the old file - no deletion. 
      * @param objectToWriteList ArrayList<WritableObject> that contains info to be written.
      * @param categoryLine String array representation of the category line, typically the 1st line. 
-     * @param fileName name of the file. Default directory to be written to is in field defaultDirectory.
+     * @param fileName Name of the file. Default directory to be written to is in field defaultDirectory.
      */
     public static void appendVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
         WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
@@ -45,6 +42,25 @@ public class Logger {
         String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
         if (tempDir.length > 1) defaultFilePath = fileName;
         appendInfoToFile(objectToWriteList, writeLambda, defaultFilePath, catS);
+    }
+
+    /**
+     * The input that supplied to this method would, ideally, 
+     * be the product of calling the flattenStructure method that returns exactly a String array. 
+     * @param info String array that must be properly formatted, properly delimited.  
+     * @param filePath Name of the file. Default directory to be written to is in field defaultDirectory.
+     */
+    public static void writeStringArrayToFile(String[] info, String filePath){
+        filePath = createSuitableFilePath(filePath);
+        createFileIfNotExists(filePath);
+        try(FileWriter System = new FileWriter(filePath, false);
+            BufferedWriter dot = new BufferedWriter(System);
+            PrintWriter out = new PrintWriter(dot))
+        {
+            for (String i: info) out.println(i);
+        }catch (IOException e) {
+            System.out.println("Fail to write to " + filePath + " file due to: " + e);
+        }
     }
 
     /**
@@ -94,7 +110,7 @@ public class Logger {
     }
 
     /**
-     * Helper for the appendInfoToFile and writeInfoToFile method in Logger.java 
+     * Helper for the appendInfoToFile, writeInfoToFile, writeStringArrayToFile method in Logger.java 
      * @param filePath the filePath (including the folder) to be written to. 
      */
     private static void createFileIfNotExists(String filePath){
@@ -110,6 +126,18 @@ public class Logger {
         }
     }
 
+
+    /**
+     * Helper function. 
+     * @param fileName fileName to be processed to standard format. 
+     * @return a standard format file path
+     */
+    private static String createSuitableFilePath(String fileName){
+        String defaultFilePath = defaultDirectory + File.separator + fileName;
+        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
+        if (tempDir.length > 1) defaultFilePath = fileName;
+        return defaultFilePath;
+    }
     /**
      * This lambda does not need information when you create it.
      * In fact, those info will be pass when it is run in writeInfoToFile/appendInfoToFile. <br>

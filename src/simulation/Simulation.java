@@ -20,17 +20,15 @@ public class Simulation {
     public void run(){
         System.out.println("Run.");
         testMalware();
-        //System.out.println(malwareManager.occurenceReport());
-        //display();
     }
 
     public void testMalware(){
         malwareManager.lastestSort();   
         malwareManager.writeVisualizationData();
         cveManager.writeVisualizationData();
-        System.out.println(Parser.flattenStructure(malwareManager.signatureOccurenceReport(),','));
-        System.out.println(Parser.flattenStructure(malwareManager.fileTypeOccurenceReport(), ','));
-        System.out.println(Parser.flattenStructure(malwareManager.mimeTypeOccurenceReport(), ','));
+        System.out.println(Parser.flattenStructure(malwareManager.signatureOccurenceReport("signatureReport.csv"),','));
+        System.out.println(Parser.flattenStructure(malwareManager.fileTypeOccurenceReport("fileTypeReport.csv"), ','));
+        System.out.println(Parser.flattenStructure(malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv"), ','));
 
     }
 
