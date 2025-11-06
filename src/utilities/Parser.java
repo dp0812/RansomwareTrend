@@ -40,7 +40,7 @@ public class Parser {
         StringBuilder info = new StringBuilder(77);
 
         someMap.forEach((key,values) -> {
-            header.append(key).append(delimiter); 
+            header.append(key).append(delimiter); //.trim()
             info.append(values).append(delimiter);
         });
 
