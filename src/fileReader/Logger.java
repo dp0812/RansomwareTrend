@@ -111,16 +111,17 @@ public class Logger {
     }
 
     /**
-     * This lambda does not need information when you create it. In fact, those info will be pass when it is run in updateInfoToCsvWithGeneric. 
+     * This lambda does not need information when you create it.
+     * In fact, those info will be pass when it is run in writeInfoToFile/appendInfoToFile. <br>
+     * This method used an internal StringBuilder to convert the data representation to one single string, lowering the workload of the buffer. <br>
      * @return a lambda writing info from ArrayList of objects that their class must implement WritableObject (must have getInfoArr in these objects) 
      */
     private static WritingToFileAction<ArrayList<WritableObject>> createLambdaForWritingInfo(){
         WritingToFileAction<ArrayList<WritableObject>> writeLambda = (out,content)-> {
             for (WritableObject someUserDefinedWritableObject : content){
                 String[] userInfoArr = someUserDefinedWritableObject.getInfoArr();
-                for (String info: userInfoArr){
-                    out.print(info +",");
-                }
+                String writeString = Parser.flattenStructure(userInfoArr, ',');
+                out.print(writeString);
                 out.println();
             }
         }; 

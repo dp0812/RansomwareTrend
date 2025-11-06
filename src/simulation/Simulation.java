@@ -1,6 +1,7 @@
 package simulation;
 
 import utilities.ConsoleUI;
+import utilities.Parser;
 import entities.CveCollections;
 import entities.MalwareCollections;
 
@@ -18,10 +19,21 @@ public class Simulation {
     }
     public void run(){
         System.out.println("Run.");
-        malwareManager.firstSeenSort();   
-        malwareManager.writeVisualizationData();
-        display();
+        testMalware();
+        //System.out.println(malwareManager.occurenceReport());
+        //display();
     }
+
+    public void testMalware(){
+        malwareManager.lastestSort();   
+        malwareManager.writeVisualizationData();
+        cveManager.writeVisualizationData();
+        System.out.println(Parser.flattenStructure(malwareManager.signatureOccurenceReport(),','));
+        System.out.println(Parser.flattenStructure(malwareManager.fileTypeOccurenceReport(), ','));
+        System.out.println(Parser.flattenStructure(malwareManager.mimeTypeOccurenceReport(), ','));
+
+    }
+
     public void display(){
         ConsoleUI.printArrayList(malwareManager.getMalwareArrayList());
         //ConsoleUI.printArrayList(cveManager.getCveArrayList());

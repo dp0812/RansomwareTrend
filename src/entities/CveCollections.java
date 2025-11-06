@@ -8,6 +8,7 @@ import fileReader.ReadCveInfo;
 public class CveCollections {
     ReadCveInfo cveDataset = new ReadCveInfo();
     ArrayList<Cve> cveArrayList = new ArrayList<>();
+    String outputFile;
 
     /**
      * @param dataFileName Name of the dataset. Default location is in datasets directory. 
@@ -16,9 +17,13 @@ public class CveCollections {
     public final void setUpCve(String dataFileName, String writeFileName){
         cveDataset.readCsvFile(dataFileName);
         cveArrayList = cveDataset.getCveArrayList();
-        Logger.writeVisualizationData(cveDataset.getWritableArrayList(), cveDataset.getCategoryLine(),writeFileName);
+        outputFile = writeFileName;
     }
     public ArrayList<Cve> getCveArrayList(){
         return this.cveArrayList;
+    }
+
+    public final void writeVisualizationData(){
+        Logger.writeVisualizationData(cveDataset.getWritableArrayList(), cveDataset.getCategoryLine(),outputFile);
     }
 }
