@@ -38,10 +38,7 @@ public class Logger {
     public static void appendVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
         WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
         String catS = String.join(",",categoryLine);
-        String defaultFilePath = defaultDirectory + File.separator + fileName;
-        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
-        if (tempDir.length > 1) defaultFilePath = fileName;
-        appendInfoToFile(objectToWriteList, writeLambda, defaultFilePath, catS);
+        appendInfoToFile(objectToWriteList, writeLambda, createSuitableFilePath(fileName), catS);
     }
 
     /**
@@ -110,6 +107,18 @@ public class Logger {
     }
 
     /**
+     * Helper function which produced a properly formated filePath, inside the outputs directory. 
+     * @param fileName fileName to be processed to standard format. 
+     * @return a standard format file path
+     */
+    private static String createSuitableFilePath(String fileName){
+        String defaultFilePath = defaultDirectory + File.separator + fileName;
+        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
+        if (tempDir.length > 1) defaultFilePath = fileName;
+        return defaultFilePath;
+    }
+
+    /**
      * Helper for the appendInfoToFile, writeInfoToFile, writeStringArrayToFile method in Logger.java 
      * @param filePath the filePath (including the folder) to be written to. 
      */
@@ -126,18 +135,6 @@ public class Logger {
         }
     }
 
-
-    /**
-     * Helper function. 
-     * @param fileName fileName to be processed to standard format. 
-     * @return a standard format file path
-     */
-    private static String createSuitableFilePath(String fileName){
-        String defaultFilePath = defaultDirectory + File.separator + fileName;
-        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
-        if (tempDir.length > 1) defaultFilePath = fileName;
-        return defaultFilePath;
-    }
     /**
      * This lambda does not need information when you create it.
      * In fact, those info will be pass when it is run in writeInfoToFile/appendInfoToFile. <br>
