@@ -1,13 +1,14 @@
 package simulation;
 
-import utilities.ConsoleUI;
-import utilities.Parser;
-
 import java.util.Optional;
 
+import utilities.Parser;
+import utilities.ConsoleUI;
 import entities.CveCollections;
 import entities.MalwareCollections;
-
+/**
+ * This class provide easy access to process the data and outputs them in file, with minimal user input required. 
+ */
 public class Simulation {
     MalwareCollections malwareManager = new MalwareCollections();
     CveCollections cveManager = new CveCollections();
@@ -30,11 +31,10 @@ public class Simulation {
     public void testMalware(){
         malwareManager.lastestSort();   
         malwareManager.writeVisualizationData();
-        cveManager.writeVisualizationData();
-        IO.println(Parser.flattenStructure(malwareManager.signatureOccurenceReport("signatureReport.csv"),','));
-        IO.println(Parser.flattenStructure(malwareManager.fileTypeOccurenceReport("fileTypeReport.csv"), ','));
-        IO.println(Parser.flattenStructure(malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv"), ','));
-
+        malwareManager.signatureOccurenceReport("signatureReport.csv");
+        malwareManager.fileTypeOccurenceReport("fileTypeReport.csv");
+        malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv");
+        cveManager.writeVisualizationData(); //this is testing the cve... which is not needed. 
     }
 
     public void display(){

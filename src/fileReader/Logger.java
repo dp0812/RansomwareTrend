@@ -1,7 +1,6 @@
 package fileReader;
 
 import java.io.BufferedWriter;
-//import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +10,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import utilities.Parser;
-
+/**
+ * This class provide error handling writer, to write information to a file with careful error handling, resource management 
+ * and O(N) time complexity, with N = number of lines of the file.
+ */
 public class Logger {
     /** Default output directory if not specified by user. */
     private static final String defaultDirectory = "outputs";
@@ -110,7 +112,7 @@ public class Logger {
     }
 
     /**
-     * Helper for the appendInfoToFile, writeInfoToFile, writeStringArrayToFile method in Logger.java 
+     * Attempt to create a file (and directory) if the specified file is not found.  
      * @param filePath the filePath (including the folder) to be written to. 
      */
     private static void createFileIfNotExists(String filePath){
