@@ -1,13 +1,14 @@
 package fileReader;
 
 import java.io.BufferedWriter;
-import java.io.File;
+//import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import utilities.Parser;
 
@@ -25,7 +26,7 @@ public class Logger {
     public static void writeVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
         WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
         String catS = String.join(",",categoryLine);
-        writeInfoToFile(objectToWriteList, writeLambda, createSuitableFilePath(fileName), catS);
+        writeInfoToFile(objectToWriteList, writeLambda, fileName, catS);
     }
 
     /**
@@ -38,7 +39,7 @@ public class Logger {
     public static void appendVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
         WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
         String catS = String.join(",",categoryLine);
-        appendInfoToFile(objectToWriteList, writeLambda, createSuitableFilePath(fileName), catS);
+        appendInfoToFile(objectToWriteList, writeLambda, fileName, catS);
     }
 
     /**
@@ -48,7 +49,7 @@ public class Logger {
      * @param filePath Name of the file. Default directory to be written to is in field defaultDirectory.
      */
     public static void writeStringArrayToFile(String[] info, String filePath){
-        filePath = createSuitableFilePath(filePath);
+        filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
         createFileIfNotExists(filePath);
         try(FileWriter System = new FileWriter(filePath, false);
             BufferedWriter dot = new BufferedWriter(System);
@@ -70,6 +71,7 @@ public class Logger {
      * @param fileHeader first line of the file (typically category line)
      */
     private static <T> void writeInfoToFile(T WritableObjectsArrList, WritingToFileAction<T> lambdaExpression, String filePath, String fileHeader){
+        filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
         createFileIfNotExists(filePath);
         try(FileWriter System = new FileWriter(filePath, false);
             BufferedWriter dot = new BufferedWriter(System);
@@ -93,6 +95,7 @@ public class Logger {
      * @param fileHeader first line of the file (typically category line)
      */
     private static <T> void appendInfoToFile(T WritableObjectsArrList, WritingToFileAction<T> lambdaExpression, String filePath, String fileHeader){
+        filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
         createFileIfNotExists(filePath);
         try(FileWriter System = new FileWriter(filePath, true);
             BufferedWriter dot = new BufferedWriter(System);
@@ -104,18 +107,6 @@ public class Logger {
         }catch (IOException e) {
             System.out.println("Fail to append to " + filePath + " file due to: " + e);
         }
-    }
-
-    /**
-     * Helper function which produced a properly formated filePath, inside the outputs directory. 
-     * @param fileName fileName to be processed to standard format. 
-     * @return a standard format file path
-     */
-    private static String createSuitableFilePath(String fileName){
-        String defaultFilePath = defaultDirectory + File.separator + fileName;
-        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
-        if (tempDir.length > 1) defaultFilePath = fileName;
-        return defaultFilePath;
     }
 
     /**
@@ -146,8 +137,7 @@ public class Logger {
             for (WritableObject someUserDefinedWritableObject : content){
                 String[] userInfoArr = someUserDefinedWritableObject.getInfoArr();
                 String writeString = Parser.flattenStructure(userInfoArr, ',');
-                out.print(writeString);
-                out.println();
+                out.println(writeString);
             }
         }; 
         return writeLambda;

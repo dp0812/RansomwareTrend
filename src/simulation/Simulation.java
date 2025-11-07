@@ -2,6 +2,9 @@ package simulation;
 
 import utilities.ConsoleUI;
 import utilities.Parser;
+
+import java.util.Optional;
+
 import entities.CveCollections;
 import entities.MalwareCollections;
 
@@ -12,13 +15,15 @@ public class Simulation {
     public Simulation(){}
 
     public void setUpCve(String testFileName, String writeFileName){
-        cveManager.setUpCve(testFileName, writeFileName);
+        String testFilePath = Parser.createSuitableFilePath(testFileName, Optional.empty());
+        cveManager.setUpCve(testFilePath, writeFileName);
     }
     public void setUpMalware(String testFileName, String writeFileName){
-        malwareManager.setUpMalware(testFileName, writeFileName);
+        String testFilePath = Parser.createSuitableFilePath(testFileName, Optional.empty());
+        malwareManager.setUpMalware(testFilePath, writeFileName);
     }
     public void run(){
-        System.out.println("Run.");
+        IO.println("Run.");
         testMalware();
     }
 
@@ -26,15 +31,14 @@ public class Simulation {
         malwareManager.lastestSort();   
         malwareManager.writeVisualizationData();
         cveManager.writeVisualizationData();
-        System.out.println(Parser.flattenStructure(malwareManager.signatureOccurenceReport("signatureReport.csv"),','));
-        System.out.println(Parser.flattenStructure(malwareManager.fileTypeOccurenceReport("fileTypeReport.csv"), ','));
-        System.out.println(Parser.flattenStructure(malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv"), ','));
+        IO.println(Parser.flattenStructure(malwareManager.signatureOccurenceReport("signatureReport.csv"),','));
+        IO.println(Parser.flattenStructure(malwareManager.fileTypeOccurenceReport("fileTypeReport.csv"), ','));
+        IO.println(Parser.flattenStructure(malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv"), ','));
 
     }
 
     public void display(){
         ConsoleUI.printArrayList(malwareManager.getMalwareArrayList());
-        //ConsoleUI.printArrayList(cveManager.getCveArrayList());
     }
 
 }

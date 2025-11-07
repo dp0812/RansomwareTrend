@@ -1,8 +1,10 @@
 package utilities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 
 public class Parser {
     
@@ -55,11 +57,35 @@ public class Parser {
 
     }
 
+    /**
+     * Composed the elements of the array to a single String, properly delimited by the delimiter, 
+     * in the exact order of the original array, with no trailing delimiter. 
+     * @param someArray A typical String array, 
+     * @param delimiter Any delimiter
+     * @return A string composed of the element in the array, in that exact order, delimited by the delimiter
+     */
     public static String flattenStructure(String[] someArray, char delimiter){
         StringBuilder info = new StringBuilder(77);
         Arrays.stream(someArray).forEach(in -> {info.append(in).append(delimiter);});
         //setLength method discard all characters in the original String whose index>newLength. 
         if (info.length() > 0) info.setLength(info.length() - 1); //trim the last delimiter. 
         return info.toString(); 
+    }
+
+    /**
+     * Produced a properly formated filePath, inside the default directory.
+     * This method DOES NOT guarantee the correctness of the defaultDirectory parameter - that is on the caller. 
+     * If caller supply an Optional.empty() argument for directory, the default will be datasets. 
+     * @param optionalDefaultDirectory directory where the file is located. 
+     * @param fileName fileName to be processed to standard format. 
+     * @return a standard format file path which delimiter is dependent of the system running.
+     */
+    public static String createSuitableFilePath(String fileName, Optional<String> optionalDefaultDirectory){
+        String directory  = "datasets";
+        if (optionalDefaultDirectory.isPresent()) directory = optionalDefaultDirectory.get();
+        String defaultFilePath = directory + File.separator + fileName;
+        String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
+        if (tempDir.length > 1) defaultFilePath = fileName;
+        return defaultFilePath;
     }
 }
