@@ -46,7 +46,7 @@ public class Logger {
 
     /**
      * The input that supplied to this method would, ideally, 
-     * be the product of calling the flattenStructure method that returns exactly a String array. 
+     * be the product of calling the flattenStructure method that returns exactly a String array properly formatted. 
      * @param info String array that must be properly formatted, properly delimited.  
      * @param filePath Name of the file. Default directory to be written to is in field defaultDirectory.
      */
@@ -69,7 +69,7 @@ public class Logger {
      * @param <T> must be ArrayList < some user defined data type > 
      * @param WritableObjectsArrList must be ArrayList <WritableObject> 
      * @param lambdaExpression the generic of the lambda must also be ArrayList <WritableObject> 
-     * @param filePath what file to write, including the directory.
+     * @param filePath what file to write, including the directory is optional.
      * @param fileHeader first line of the file (typically category line)
      */
     private static <T> void writeInfoToFile(T WritableObjectsArrList, WritingToFileAction<T> lambdaExpression, String filePath, String fileHeader){
@@ -93,7 +93,7 @@ public class Logger {
      * @param <T> must be ArrayList < some user defined data type > 
      * @param WritableObjectsArrList must be ArrayList <WritableObject> 
      * @param lambdaExpression the generic of the lambda must also be ArrayList <WritableObject> 
-     * @param filePath what file to write, including the directory.
+     * @param filePath what file to write, including the directory is optional.
      * @param fileHeader first line of the file (typically category line)
      */
     private static <T> void appendInfoToFile(T WritableObjectsArrList, WritingToFileAction<T> lambdaExpression, String filePath, String fileHeader){

@@ -3,19 +3,28 @@ package utilities;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public class Parser {
-    
+/**
+ * Utility class providing static methods for serialization and deserialization of core data structures to and from a String format.<p>
+ * The generated String format is intentionally compact and optimized for 
+ * program consumption and parsing speed, not for human readability or inspection.
+ */
+public final class Parser {
+
     /**
-     * Parsing input from given String, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes "". 
+     * Parsing input from given String into a String array, delimited by delimiter parameter, ignoring all delimiters enclosed in double quotes "". 
      * @param input some String input, presumably read from file.
      * @param delimiter a character delimiter. Example: comma ',' file separator - windows '\\', unix '/'
      * @return String array with each element enclosed in delimiter as a separate String.
      */
     public static String[] simpleParser(String input, char delimiter){
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
         int start = 0;
         boolean inQuotes = false;
         for (int current = 0; current < input.length(); current++) {
@@ -31,6 +40,28 @@ public class Parser {
     }
 
     /**
+     * Create and return a new LinkedHashMap that is sorted in descending order, based on the values mapped to the key.<p>
+     * Examples: if inputMap = {Dang=5, Anny=10, Jinsei=8, Ethan=9 } then return = {Anny=10, Ethan=9, Jinsei=8, Dang=5}.<p>
+     * This method DOES NOT guarantee the handling of null values in the map. 
+     * @param inputMap A LinkedHashMap with no NULL values. 
+     * @return a LinkedHashMap, sorted in descending order. 
+     */
+    public static LinkedHashMap<String,Integer> sortByValue(LinkedHashMap<String,Integer> inputMap){
+        List<Map.Entry<String,Integer>> inputList = new ArrayList<>(inputMap.entrySet());
+        Comparator<Map.Entry<String,Integer>> mapComparator = new Comparator<Map.Entry<String,Integer>>(){
+            public int compare(Map.Entry<String,Integer> o1, Map.Entry<String,Integer> o2){
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        };
+        Collections.sort(inputList, mapComparator.reversed());
+        LinkedHashMap<String, Integer> sortLinkedHashMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : inputList) sortLinkedHashMap.put(entry.getKey(), entry.getValue());
+        return sortLinkedHashMap;
+    }
+
+    /**
+     * Transform a LinkedHashMap into a string array, the first element is all the key combined, 
+     * the second element is all the value combined, both delimited by the delimiter. <p>
      * This method guarantees an array of String with the components properly delimited by the delimiter, with no trailing delimiter.
      * @param someMap LinkedHashMap containing the data with name and occurence. 
      * @param delimiter delimiter between each items
@@ -73,18 +104,18 @@ public class Parser {
     }
 
     /**
-     * Produced a properly formated filePath, inside the default directory.
+     * Produced a properly formated filePath, inside the default directory. If caller supply an Optional.empty() argument for directory, the default will be datasets. <p>
      * This method DOES NOT guarantee the correctness of the defaultDirectory parameter - that is on the caller. 
-     * If caller supply an Optional.empty() argument for directory, the default will be datasets. 
      * @param optionalDefaultDirectory directory where the file is located. 
      * @param fileName fileName to be processed to standard format. 
-     * @return a standard format file path which delimiter is dependent of the system running.
+     * @return A standard format file path which delimiter is dependent of the system running.
      */
     public static String createSuitableFilePath(String fileName, Optional<String> optionalDefaultDirectory){
         String directory  = "datasets";
         if (optionalDefaultDirectory.isPresent()) directory = optionalDefaultDirectory.get();
         String defaultFilePath = directory + File.separator + fileName;
         String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
+        //if more than just the file name and file separator exist, override the default settings.
         if (tempDir.length > 1) defaultFilePath = fileName;
         return defaultFilePath;
     }
