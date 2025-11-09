@@ -26,9 +26,9 @@ public class Logger {
      * @param fileName name of the file. Default directory to be written to is in field defaultDirectory.
      */
     public static void writeVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
-        WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
         String catS = String.join(",",categoryLine);
-        writeInfoToFile(objectToWriteList, writeLambda, fileName, catS);
+        boolean appendMode = false; 
+        writeInfoToFile(appendMode, objectToWriteList, fileName, catS);
     }
 
     /**
@@ -39,9 +39,9 @@ public class Logger {
      * @param fileName Name of the file. Default directory to be written to is in field defaultDirectory.
      */
     public static void appendVisualizationData(ArrayList<WritableObject> objectToWriteList, String[] categoryLine, String fileName){
-        WritingToFileAction<ArrayList<WritableObject>> writeLambda = createLambdaForWritingInfo();
         String catS = String.join(",",categoryLine);
-        appendInfoToFile(objectToWriteList, writeLambda, fileName, catS);
+        boolean appendMode = true;
+        writeInfoToFile(appendMode, objectToWriteList, fileName, catS);
     }
 
     /**
@@ -64,48 +64,24 @@ public class Logger {
     }
 
     /**
-     * This is the core of simplifying everything that has to do with redundant declaration of writer. 
-     * This rewrite info to file, not append. 
-     * @param <T> must be ArrayList < some user defined data type > 
-     * @param WritableObjectsArrList must be ArrayList <WritableObject> 
-     * @param lambdaExpression the generic of the lambda must also be ArrayList <WritableObject> 
+     * Provide effective writing info to file, can be put in write or append mode, apply serialization to ArrayList before any writing. 
+     * @param isAppend true -> append, false -> write
+     * @param WritableObjectsArrList must be ArrayList of WritableObject
      * @param filePath what file to write, including the directory is optional.
      * @param fileHeader first line of the file (typically category line)
      */
-    private static <T> void writeInfoToFile(T WritableObjectsArrList, WritingToFileAction<T> lambdaExpression, String filePath, String fileHeader){
+    private static void writeInfoToFile(boolean isAppend, ArrayList<WritableObject> WritableObjectsArrList, String filePath, String fileHeader){
         filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
         createFileIfNotExists(filePath);
-        try(FileWriter System = new FileWriter(filePath, false);
+        try(FileWriter System = new FileWriter(filePath, isAppend);
             BufferedWriter dot = new BufferedWriter(System);
             PrintWriter out = new PrintWriter(dot))
         {
             out.println(fileHeader);
-            lambdaExpression.writeWithLambda(out, WritableObjectsArrList);
-            
-        }catch (IOException e) {
-            System.out.println("Fail to write to " + filePath + " file due to: " + e);
-        }
-    }
-
-    /**
-     * This is the core of simplifying everything that has to do with redundant declaration of writer. 
-     * This append info to file, not rewrite. 
-     * @param <T> must be ArrayList < some user defined data type > 
-     * @param WritableObjectsArrList must be ArrayList <WritableObject> 
-     * @param lambdaExpression the generic of the lambda must also be ArrayList <WritableObject> 
-     * @param filePath what file to write, including the directory is optional.
-     * @param fileHeader first line of the file (typically category line)
-     */
-    private static <T> void appendInfoToFile(T WritableObjectsArrList, WritingToFileAction<T> lambdaExpression, String filePath, String fileHeader){
-        filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
-        createFileIfNotExists(filePath);
-        try(FileWriter System = new FileWriter(filePath, true);
-            BufferedWriter dot = new BufferedWriter(System);
-            PrintWriter out = new PrintWriter(dot))
-        {
-            out.println(fileHeader);
-            lambdaExpression.writeWithLambda(out, WritableObjectsArrList);
-            
+            for (WritableObject o: WritableObjectsArrList) {
+                //turn the string array to a single string, then write. 
+                out.println(Parser.flattenStructure(o.getInfoArr(), ','));
+            }            
         }catch (IOException e) {
             System.out.println("Fail to append to " + filePath + " file due to: " + e);
         }
@@ -126,23 +102,6 @@ public class Logger {
             System.out.println("Fail to create directory '" + directoryPath + "' due to: " + e);
             return; 
         }
-    }
-
-    /**
-     * This lambda does not need information when you create it.
-     * In fact, those info will be pass when it is run in writeInfoToFile/appendInfoToFile. <br>
-     * This method used an internal StringBuilder to convert the data representation to one single string, lowering the workload of the buffer. <br>
-     * @return a lambda writing info from ArrayList of objects that their class must implement WritableObject (must have getInfoArr in these objects) 
-     */
-    private static WritingToFileAction<ArrayList<WritableObject>> createLambdaForWritingInfo(){
-        WritingToFileAction<ArrayList<WritableObject>> writeLambda = (out,content)-> {
-            for (WritableObject someUserDefinedWritableObject : content){
-                String[] userInfoArr = someUserDefinedWritableObject.getInfoArr();
-                String writeString = Parser.flattenStructure(userInfoArr, ',');
-                out.println(writeString);
-            }
-        }; 
-        return writeLambda;
     }
 
 }

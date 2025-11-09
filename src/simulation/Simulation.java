@@ -3,7 +3,6 @@ package simulation;
 import java.util.Optional;
 
 import utilities.Parser;
-import utilities.ConsoleUI;
 import entities.CveCollections;
 import entities.MalwareCollections;
 /**
@@ -29,16 +28,10 @@ public class Simulation {
     }
 
     public void testMalware(){
-        malwareManager.lastestSort();   
-        malwareManager.writeVisualizationData();
+        malwareManager.lastestSort();
+        IO.println("Malware write time = " + malwareManager.writeVisualizationData() + "ms");   
         malwareManager.signatureOccurenceReport("signatureReport.csv");
         malwareManager.fileTypeOccurenceReport("fileTypeReport.csv");
         malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv");
-        cveManager.writeVisualizationData(); //this is testing the cve... which is not needed. 
     }
-
-    public void display(){
-        ConsoleUI.printArrayList(malwareManager.getMalwareArrayList());
-    }
-
 }

@@ -23,7 +23,17 @@ public class CveCollections {
         return this.cveArrayList;
     }
 
-    public final void writeVisualizationData(){
+    public final long writeVisualizationData(){
+        long startTime = System.currentTimeMillis();
         Logger.writeVisualizationData(cveDataset.getWritableArrayList(), cveDataset.getCategoryLine(),outputFile);
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
+    }
+
+    public final long appendVisualizationData(){
+        long startTime = System.currentTimeMillis();
+        Logger.appendVisualizationData(cveDataset.getWritableArrayList(), cveDataset.getCategoryLine(), outputFile);
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
     }
 }
