@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Dashboard with Selection</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 30px; }
+        .dashboard-controls button {
+            padding: 12px 20px;
+            margin-right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .dashboard-controls button:hover {
+            background-color: #e0e0e0;
+        }
+        .dashboard-controls button.active {
+            background-color: #69b3a2;
+            color: white;
+            border-color: #69b3a2;
+        }
+        #chart-title {
+            font-size: 32px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+        }
+        /* Basic styling for bars if not overridden by D3 */
+        .bar { fill: steelblue; }
+        .tooltip {
+            background-color: white;
+            border: 1px solid #999;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            pointer-events: none; /* VERY IMPORTANT: Ensures the cursor ignores the tooltip */
+            z-index: 10; /* Ensures the tooltip appears above the chart */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Report Dashboard</h1>
+    <p id="data-validity"></p>
+    <div class="dashboard-controls">
+        <button id="btn-chart1" class="active">Malware Signature Occurrences</button>
+        <button id="btn-chart2">File Type Occurrences</button>
+        <button id="btn-chart3">Mime Type Occurrences</button>
+    </div>
+
+    <h2 id="chart-title">Type Occurrences</h2>
+    <div id="dashboard-container"></div>
+
+    <script type="module" src="dashboard.js"></script>
+
+</body>
+</html>
