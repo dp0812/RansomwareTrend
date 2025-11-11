@@ -53,8 +53,22 @@
     </div>
 
     <h2 id="chart-title">Type Occurrences</h2>
-    <div id="dashboard-container"></div>
-
+    <div style="display: flex;"> 
+        <div id="dashboard-container"></div> 
+        <div id="description-container" style="
+            margin-left: 80px; 
+            padding: 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            min-width: 300px; 
+            height: 400px; 
+            overflow-y: auto; 
+            font-size: 14px;
+        ">
+        <h3 id="description-title"></h3>
+            <div id="description-content">Loading descriptions...</div>
+        </div>
+    </div>
     <script type="module" src="dashboard.js"></script>
 
 </body>

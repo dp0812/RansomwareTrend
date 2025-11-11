@@ -1,0 +1,13 @@
+fileType,description
+elf,Executable and Linkable Format, a standard file format mainly used by Linux and other Unix-like systems for runnable programs.
+exe,Executable file, the most common type of file that runs a program or application in Windows.
+js,JavaScript file, a text file containing code that is mostly used to make websites interactive or to run applications outside a browser.
+vbs,VBScript file, a simple script file that runs commands using the older Microsoft VBScript language, mainly on Windows.
+zip,A compressed archive file that contains one or more other files which have been squeezed down to save disk space and make them easier to send.
+bat,Batch file, a simple text-based script that runs a series of commands sequentially in the Windows Command Prompt.
+vbe,A script file that is a secure, encoded version of a VBScript file (.vbs), often used to hide the code's contents.
+sh,Shell script, a simple text file containing commands that are executed by a Unix/Linux operating system.
+ps1,PowerShell script, a sophisticated script file used by Windows system administrators to automate tasks.
+msi,Microsoft Installer file, a package used by Windows to install, uninstall, or modify software programs.
+lnk,Shortcut link, a small file that simply points to the actual location of another file, folder, or program, often found on the desktop.
+xlsx,Microsoft Excel Spreadsheet, a file type used to store and organize data in rows and columns for calculations and analysis.

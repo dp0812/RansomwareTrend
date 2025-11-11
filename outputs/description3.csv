@@ -1,0 +1,13 @@
+mimeType,description
+application/x-executable,A generic code for an executable file, often used for programs that run on Linux or Unix-like systems.
+application/x-dosexec,A code used to identify Windows executable files, which are the main way to run programs on that operating system.
+text/plain,The standard, simple code for any file that contains unformatted human-readable text, like a basic note or document.
+application/zip,The standard code for a ZIP archive, which is a compressed file containing one or more other files.
+application/octet-stream,A very generic code that simply means "raw binary data" and is used when the file type is unknown or not specified.
+application/x-msi,The code for a Microsoft Installer package, which is a file used by Windows to install or configure software.
+application/x-ms-shortcut,The code for a Windows shortcut file, which is a small link pointing to another file, folder, or program.
+text/x-shellscript,The code for a shell script, which is a text file containing commands executed by a Linux or Unix command-line interpreter.
+text/html,The code for an HTML file, which is the foundational language used to build and display web pages in a browser.
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,The standard code for a modern Microsoft Excel spreadsheet file (the .xlsx format).
+application/x-rar,The code for a RAR archive, which is another type of compressed file format similar to a ZIP file.
+application/x-mach-binary,A code used to identify an executable program file that is designed to run on macOS or iOS systems.

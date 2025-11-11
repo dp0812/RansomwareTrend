@@ -1,0 +1,14 @@
+sinature,description
+Mirai,A type of malware that targets and infects internet-connected devices (like smart cameras) to turn them into bots for massive attacks.
+Rhadamanthys,An information-stealing malware designed to steal sensitive data, such as login credentials, from an infected computer.
+XWorm,A multi-purpose piece of malware that can act as a Remote Access Trojan (RAT) or a stealer, giving attackers control and access to files.
+RemcosRAT,A popular Remote Access Trojan (RAT) used by attackers to secretly control an infected computer and spy on the user.
+Formbook,A versatile information stealer that specifically targets and collects data entered into web forms and browser credentials.
+Vidar,A fast-acting information stealer that grabs credentials, crypto wallets, and other personal data from a victim's machine.
+AgentTesla,A common and commercial keylogger and information stealer that records keystrokes and extracts saved passwords from browsers.
+PhantomStealer,A malware designed to steal various credentials and system information, often delivered through phishing emails.
+Stealc,A sophisticated information stealer known for its ability to extract data from a large number of browsers and cryptocurrency extensions.
+PureLogsStealer,A simple, yet effective, information-stealing malware used to gather and exfiltrate logs containing user credentials and other data.
+a310Logger,A keylogger and information stealer that records user activity and harvests credentials from various applications and browsers.
+CobaltStrike,A legitimate, commercial penetration testing tool that is often misused by attackers to simulate network breaches and execute further attacks.
+AsyncRAT,An open-source Remote Access Trojan (RAT) that allows attackers to control a system remotely, often used for reconnaissance and data theft.

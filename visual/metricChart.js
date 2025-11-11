@@ -3,17 +3,16 @@ export function drawChart(endpoint, title, color, dashboardContainer, chartTitle
     chartTitle.text(title);
     const svg = clearAndPrepareSvg(dashboardContainer, width, height, margin);
     
-    //1. Fetch pre-processed JSON data
-    // The server now returns an object { data: [], dateRange: {} }
+    //1. Fetch pre-processed JSON data (Update to handle the new JSON object)
     d3.json(endpoint).then(function(response) { 
-        const transformedData = response.data; // Access the array under the 'data' key
-        const dateRange = response.dateRange;
+        const transformedData = response.data;      
+        const dateRange = response.dateRange;         
 
-        // Display the date validity message
+        // Set the date validity message
         if (dateRange && dateRange.earliest && dateRange.latest) {
-            dataValidityElement.text(`Data collected: from ${dateRange.earliest} to ${dateRange.latest}`);
+            dataValidityElement.text(`Data is collected and applicable from ${dateRange.earliest} to ${dateRange.latest}`);
         } else {
-            dataValidityElement.text(""); // Clear if no date data
+            dataValidityElement.text("Data validity range could not be determined."); 
         }
 
         if (!transformedData || transformedData.length === 0) {
@@ -37,7 +36,7 @@ export function drawChart(endpoint, title, color, dashboardContainer, chartTitle
     .catch(function(error) {
         console.error("Error fetching data from API:", error);
         chartTitle.text("Error: Could not load data.");
-        dataValidityElement.text("");
+        dataValidityElement.text(""); 
     });
 }
 

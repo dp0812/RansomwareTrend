@@ -1,24 +1,61 @@
+# Data Processing and Visualization Project
 
-# Malware Trend Dashboard 
+This project combines a **Java backend** for data processing and a **Node.js/Express frontend** for data visualization.
 
-## 1. A description of the project: 
-Visualize data from a malware dataset with certain filtering in a somewhat organized manners: 
-- Filter 1: Top 10 of the following xyz type. 
-- Filter 2: Range of date Added.
-## 2. Reflection:
-- Why you selected this project (the need): Because a normal dataset has absolutely no meaningful way of letting a typical normal user a way of looking at it in a quick glance (only has csv, json, json schema and print view... which is basically larger csv).  
-- Why/how it matters in cybersecurity: This should be able to help keep track of some of the newer, recent spread of malware, and possibly provide some guidance to normal users.  
-- What others have done in this area: ransomware.live has a dedicated visualization for the recent trend also, however it has an overflow of information... and I have yet to find a reliable way to get a dataset from what is being displayed. Let hope that I can do something this good? 
-- What prior knowledge or skills you bring: java, software architecture, optimization (refers to binding) and a certain more.  
-- What new knowledge or skills you will need to build to complete the project: bash (to command different language at once), js, d3.  
-- What you hope to learn by working on it: to effectively put together different coding language that works together without having to run each separately (which, I have only test with very, very trivial product, thus this might be a huge failure).   
-## 3. Timeline:  
-- October 12th: class diagram for the logic and architecture (DONE).  
-- October 19th: rough draft of the logic implementation (DONE) 
-- November 2nd: a refinement of said draft, which should produce at least a dataset of the current activity (DONE).  
-- November 16th: visualization of the produced outputs (MOSTLY DONE).  
-- December 7th: visualization of all the sets.  
-## 4. Architecture: 
-The overall structure, on a very high level overview is as follows:  
-- Let us have a certain business logic code, denoted as A.java; a certain GUI or a certain visual, denoted as C.js; a certain intermediate file, denoted as B, and a certain script to activate all these files, denoted as D.sh. 
-- D.sh is responsible for running the A.java, which then output to B. Then C.js shall reads from this intermediate file B, and produce a web output (perhaps, index.html) or whatever form that visualization is.  
+---
+
+## Getting Started
+
+### Prerequisites
+
+To run this project, you need the following software installed on your system:
+
+* **Java Development Kit (JDK):** Version **25.0.1** or later.
+* **Node.js:** A runtime environment that includes **npm** (Node Package Manager).
+
+---
+
+## Project Structure
+
+The key components of the project are located in the following folders:
+
+* `src/`: Contains the core Java application logic.
+    * `src/App.java`: The main driver file for data processing.
+    * `src/datasets/`: **This is where you place your raw CSV data files.**
+* `visualserver/`: Contains the Node.js server and client-side visualization code.
+    * `visualserver/server.js`: The backend server file.
+* `visual/`: (Intended for frontend/client-side assets, not explicitly used in the instructions, but kept for a standard structure.)
+
+---
+
+## Usage Instructions
+
+### 1. Updating and Processing Data
+
+Follow these steps to update the input data and run the Java processing application (if you want it to process a new csv file from MalwareBazaar):
+
+1.  **Update Data File:** Place your new $\text{CSV}$ file into the `src/datasets/` folder.
+2.  **Edit Driver File:** Open the $\text{App.java}$ file in the `src/` directory.
+3.  **Change Argument:** Locate the section where the dataset file name is passed as an argument and **update the file name** to match your new $\text{CSV}$ file.
+4.  **Run Java Application:** Compile and run the $\text{App.java}$ file using your preferred Java IDE or the command line.
+    > *This step will process your data and prepare it for visualization.*
+
+### 2. Visualizing the Data
+
+To start the visualization server and view the results in your web browser:
+
+1.  **Navigate to the Server Directory:** Open your terminal or command prompt and change the directory to the visualization server folder:
+    ```bash
+    cd visualserver
+    ```
+2.  **Initialize Project and Install Dependencies:** Run the following commands to set up the Node.js environment and install required packages (`express` for the server and `csv-parser` for reading data):
+    ```bash
+    npm init -y
+    npm install express csv-parser
+    ```
+3.  **Start the Visualization Server:** Execute the server file using Node.js:
+    ```bash
+    node server.js
+    ```
+    > **IMPORTANT:** **Do not close this terminal window** while you are viewing the visualization, as it is running the server process.
+4.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). **Copy this link and paste it into your web browser's address bar** to view the data visualization.
