@@ -2,8 +2,8 @@ import simulation.Simulation;
 public class App {
     public static void main(String[] args){
         Simulation total = new Simulation();
-        total.setUpMalware("-NIkeXLf.csv", "malwareTest.csv");
-        total.setUpCve("test_known_exploited_vulnerabilities.csv", "cveTest.csv");
+        //REPLACE THE NAME OF THE CSV FILE HERE, INCLUDING THE .cvs EXTENSION AND THE PARENTHESIS.  
+        total.setUpMalwareDefault("-NIkeXLf.csv"); 
         total.run();
     }
 }

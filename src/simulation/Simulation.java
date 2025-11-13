@@ -22,12 +22,20 @@ public class Simulation {
         String testFilePath = Parser.createSuitableFilePath(testFileName, Optional.empty());
         malwareManager.setUpMalware(testFilePath, writeFileName);
     }
+    /**
+     * Vanila user experience set up method. 
+     * @param inputCsvFile the name of the input file, INCLUDING the file extension.
+     */
+    public void setUpMalwareDefault(String inputCsvFile){
+        String testFilePath = Parser.createSuitableFilePath(inputCsvFile, Optional.empty());
+        malwareManager.setUpMalware(testFilePath, "formattedMalwareInfo.csv");
+    }
     public void run(){
         IO.println("Run.");
-        testMalware();
+        processMalware();
     }
 
-    public void testMalware(){
+    public void processMalware(){
         malwareManager.lastestSort();
         IO.println("Malware write time = " + malwareManager.writeVisualizationData() + "ms");   
         malwareManager.signatureOccurenceReport("signatureReport.csv");

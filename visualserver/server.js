@@ -105,7 +105,7 @@ function handleReportApi(reportPath, fullCsvPath, res) {
 
 
 // The full CSV file to get the date range from 
-const fullCsvPath = path.join(__dirname,'..', 'outputs', 'malwareTest.csv');
+const fullCsvPath = path.join(__dirname,'..', 'outputs', 'formattedMalwareInfo.csv');
 
 // API endpoint for the first chart
 app.get('/api/data1', (req, res) => {

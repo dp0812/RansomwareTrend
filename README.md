@@ -1,38 +1,8 @@
-# Data Processing and Visualization Project
-
-This project combines a **Java backend** for data processing and a **Node.js/Express frontend** for data visualization.
-
----
-
-## Getting Started
-
-### Prerequisites
-
-To run this project, you need the following software installed on your system:
-
-* **Java Development Kit (JDK):** Version **25.0.1** or later.
-* **Node.js:** A runtime environment that includes **npm** (Node Package Manager).
-
----
-
-## Project Structure
-
-The key components of the project are located in the following folders:
-
-* `src/`: Contains the core Java application logic.
-    * `src/App.java`: The main driver file for data processing.
-    * `src/datasets/`: **This is where you place your raw CSV data files.**
-* `visualserver/`: Contains the Node.js server and client-side visualization code.
-    * `visualserver/server.js`: The backend server file.
-* `visual/`: (Intended for frontend/client-side assets, not explicitly used in the instructions, but kept for a standard structure.)
-
----
-
 ## Usage Instructions
 
-### 1. Updating and Processing Data
+### 1. Updating and Processing Data (Java Backend)
 
-Follow these steps to update the input data and run the Java processing application (if you want it to process a new csv file from MalwareBazaar):
+Follow these steps to update the input data and run the Java processing application (if you want it to process a new CSV file from MalwareBazaar):
 
 1.  **Update Data File:** Place your new $\text{CSV}$ file into the `src/datasets/` folder.
 2.  **Edit Driver File:** Open the $\text{App.java}$ file in the `src/` directory.
@@ -40,11 +10,31 @@ Follow these steps to update the input data and run the Java processing applicat
 4.  **Run Java Application:** Compile and run the $\text{App.java}$ file using your preferred Java IDE or the command line.
     > *This step will process your data and prepare it for visualization.*
 
-### 2. Visualizing the Data
+-----
 
-To start the visualization server and view the results in your web browser:
+### 2. Visualizing the Data (Node.js/Express Frontend)
 
-1.  **Navigate to the Server Directory:** Open your terminal or command prompt and change the directory to the visualization server folder:
+There are two methods to set up and start the visualization server:
+
+#### A. Express Setup (Recommended)
+
+Use the provided setup script to quickly initialize the project and install dependencies.
+1. **Go to project root:** Ensure that you are in the project root folder. It should be (`..\RansomwareTrend`)
+    - Example: ``` C:RS\RansomwareTrend```
+2.  **Execute the Setup Script:** Run your script (`run_project.sh`). This will initialize the Node.js project, install the necessary dependencies (`express` and `csv-parser`), and start the visualization server.
+    ```bash
+    ./run_project.sh
+    ```
+3.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). **Copy this link and paste it into your web browser's address bar** to view the data visualization.
+    > **IMPORTANT:** **Do not close this terminal window** while you are viewing the visualization, as it is running the server process.
+
+-----
+
+#### B. Manual Setup
+
+If you prefer to run the commands individually:
+
+1.  **Navigate to the Server Directory:**
     ```bash
     cd visualserver
     ```
