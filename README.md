@@ -25,6 +25,20 @@ Use the provided setup script to quickly initialize the project and install depe
     ```bash
     ./run_project.sh
     ```
+    If there is a Permission denied error when running this .sh file: 
+    - For linux system please use command:
+        ```bash
+        sudo chmod +x run_project.sh 
+        ```
+        Then rerun command: 
+        ```bash
+        ./run_project.sh
+        ```
+    - For windows system: open the terminal as administrator, and rerun the command. 
+        ```bash
+        ./run_project.sh
+        ```
+
 3.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). **Copy this link and paste it into your web browser's address bar** to view the data visualization.
     > **IMPORTANT:** **Do not close this terminal window** while you are viewing the visualization, as it is running the server process.
 
@@ -49,3 +63,16 @@ If you prefer to run the commands individually:
     ```
     > **IMPORTANT:** **Do not close this terminal window** while you are viewing the visualization, as it is running the server process.
 4.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). **Copy this link and paste it into your web browser's address bar** to view the data visualization.
+
+### 3. Viewing documents of the code
+1. From project root please go to the doc folder.
+2. Run the html file: 
+- For windows user, right click on the index.html file should gives an option to reveal in file explorer. Click that, then open that file in the browser of your choice. 
+- For linux user, right click on the index.html file should gives an option to reveal in containing folder. Click that, then open that file in the browser of your choice.
+    - However, there might be a case that doing just that result in an error, something amongs the line of file not found, when clicking on the link. If so, ensure that your terminal is in the doc folder, then run command:
+        ```bash 
+        python3 -m http.server 8000
+        ```
+    - Then open the file link that is the output of this command, typically the output will be: Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+    - Then your link is: http://0.0.0.0:8000/
+    - Going to this link will automatically gives you the docs. http://0.0.0.0:8000/

@@ -21,7 +21,7 @@ public class Logger {
     /**
      * Write the info to the file specified, create new file (and directory) if file does not exist. 
      * Will deleted all content in the old file before writing. 
-     * @param objectToWriteList ArrayList<WritableObject> that contains info to be written.
+     * @param objectToWriteList ArrayList of WritableObject  that contains info to be written.
      * @param categoryLine String array representation of the category line, typically the 1st line. 
      * @param fileName name of the file. Default directory to be written to is in field defaultDirectory.
      */
@@ -34,7 +34,7 @@ public class Logger {
     /**
      * Append the info to the file specified, create new file (and directory) if file does not exist. 
      * Will append to the content in the old file - no deletion. 
-     * @param objectToWriteList ArrayList<WritableObject> that contains info to be written.
+     * @param objectToWriteList ArrayList of WritableObject that contains info to be written.
      * @param categoryLine String array representation of the category line, typically the 1st line. 
      * @param fileName Name of the file. Default directory to be written to is in field defaultDirectory.
      */
