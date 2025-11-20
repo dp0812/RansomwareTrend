@@ -53,4 +53,3 @@ kill "$SERVER_PID" 2>/dev/null
 echo "Server (PID $SERVER_PID) has been stopped."
 cd ..
 echo "Automation complete."
-sleep 1

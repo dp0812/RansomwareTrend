@@ -1,5 +1,19 @@
 ## Usage Instructions
 
+### 0. Clone and Set up the Repo 
+
+Open the terminal of your choice, and go to a directory where it is easy to find for you. If you use windows you can also go to a folder of your choice, right click and select open in terminal.
+
+1. **Clone the repo:** Run the following command to clone this repository:
+    ```bash
+    git clone https://github.com/dp0812/RansomwareTrend.git Analyzer
+    ```
+2. **Move into the project root directory:** The root directory is the folder where you can see others folder (such as src, outputs, README.md, and most important run_project.sh listed)
+    ```bash
+    cd Analyzer
+    ```
+    If you do ls (Linux) or dir (Windows) you should see the all the important folders available. You are now good to proceed. 
+
 ### 1. Updating and Processing Data (Java Backend)
 
 Follow these steps to update the input data and run the Java processing application (if you want it to process a new CSV file from MalwareBazaar):
