@@ -1,6 +1,36 @@
 ## Usage Instructions
 
 ### 0. Clone and Set up the Repo 
+The following software packages must be available on your system's path. Please ensure you meet the minimum specified version requirements - if listed. If not listed, then any version work.
+
+0. **Prerequisites packages:**
+- 1. GIT
+
+    git: Essential for cloning this repository to your local machine. You can check your installation by running this command in your terminal.
+    ```bash
+    git --version
+    ```
+
+- 2. JDK 
+
+    Java Development Kit (JDK) with minimum version: 25.0.1. This is required for compiling and running the Java source file included in the demo. You can check your version with this command:
+    ```bash
+    java --version
+    ```
+
+- 3. Node.js and npm (Node Package Manager)
+
+    Node.js and npm: Needed for setting up and running the visual components (e.g., frontend dependencies, build scripts). Check versions with these 2 command: 
+    ```bash
+    node -v
+    npm -v
+    ```
+- 4. Python3 (Optional Backup Tool)
+
+    Python 3: Included as a backup utility. If your browser fails to correctly display the index.html file (e.g., due to local file restrictions), Python 3 can be used to quickly start a local web server (e.g., using python3 -m http.server - it is specified in this document at the end, but hopefully none of you will have to read that). Check with this command: 
+    ```bash
+    python3 --version.
+    ```
 
 Open the terminal of your choice, and go to a directory where it is easy to find for you. If you use windows you can also go to a folder of your choice, right click and select open in terminal.
 
