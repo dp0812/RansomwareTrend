@@ -20,9 +20,9 @@ Follow these steps to update the input data and run the Java processing applicat
 
 1.  **Update Data File:** Place your new $\text{CSV}$ file into the `src/datasets/` folder.
 2.  **Edit Driver File:** Open the $\text{App.java}$ file in the `src/` directory.
-3.  **Change Argument:** Locate the section where the dataset file name is passed as an argument and **update the file name** to match your new $\text{CSV}$ file.
+3.  **Change Argument:** Locate the section where the dataset file name is passed as an argument and **update the file name** to match your new $\text{CSV}$ file. Press ctrl + S to save the file. 
 4.  **Run Java Application:** Compile and run the $\text{App.java}$ file using your preferred Java IDE or the command line.
-    > *This step will process your data and prepare it for visualization.*
+    > *This step will process your data and prepare it for visualization - optional if you do section 2A.*
 
 -----
 
@@ -33,8 +33,8 @@ There are two methods to set up and start the visualization server:
 #### A. Express Setup (Recommended)
 
 Use the provided setup script to quickly initialize the project and install dependencies.
-1. **Go to project root:** Ensure that you are in the project root folder. It should be (`..\RansomwareTrend`)
-    - Example: ``` C:RS\RansomwareTrend```
+1. **Go to project root:** Ensure that you are in the project root folder. It should be (`..\Analyzer`)
+    - Example: ``` C:RS\Analyzer```
 2.  **Execute the Setup Script:** Run your script (`run_project.sh`). This will initialize the Node.js project, install the necessary dependencies (`express` and `csv-parser`), and start the visualization server.
     ```bash
     ./run_project.sh
@@ -53,7 +53,7 @@ Use the provided setup script to quickly initialize the project and install depe
         ./run_project.sh
         ```
 
-3.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). **Copy this link and paste it into your web browser's address bar** to view the data visualization.
+3.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). In our case, this will be `http://localhost:8080` **Copy this link and paste it into your web browser's address bar** to view the data visualization.
     > **IMPORTANT:** **Do not close this terminal window** while you are viewing the visualization, as it is running the server process.
 
 -----
@@ -76,7 +76,7 @@ If you prefer to run the commands individually:
     node server.js
     ```
     > **IMPORTANT:** **Do not close this terminal window** while you are viewing the visualization, as it is running the server process.
-4.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). **Copy this link and paste it into your web browser's address bar** to view the data visualization.
+4.  **View Visualization:** The server will output a URL (usually `http://localhost:<port_number>`). In our case, this will be `http://localhost:8080` **Copy this link and paste it into your web browser's address bar** to view the data visualization.
 
 ### 3. Viewing documents of the code
 1. From project root please go to the doc folder.

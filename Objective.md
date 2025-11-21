@@ -16,8 +16,8 @@ Visualize data from a malware dataset with certain filtering in a somewhat organ
 - October 12th: class diagram for the logic and architecture (DONE).  
 - October 19th: rough draft of the logic implementation (DONE) 
 - November 2nd: a refinement of said draft, which should produce at least a dataset of the current activity (DONE).  
-- November 16th: visualization of the produced outputs (MOSTLY DONE).  
-- December 7th: visualization of all the sets.  
+- November 16th: visualization of the produced outputs (DONE).  
+- December 7th: visualization of all the sets.  (DONE)
 ## 4. Architecture: 
 The overall structure, on a very high level overview is as follows:  
 - Let us have a certain business logic code, denoted as A.java; a certain GUI or a certain visual, denoted as C.js; a certain intermediate file, denoted as B, and a certain script to activate all these files, denoted as D.sh. 
