@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -52,7 +50,6 @@ public class Logger {
      */
     public static void writeStringArrayToFile(String[] info, String filePath){
         filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
-        createFileIfNotExists(filePath);
         try(FileWriter System = new FileWriter(filePath, false);
             BufferedWriter dot = new BufferedWriter(System);
             PrintWriter out = new PrintWriter(dot))
@@ -72,7 +69,6 @@ public class Logger {
      */
     private static void writeInfoToFile(boolean isAppend, ArrayList<WritableObject> WritableObjectsArrList, String filePath, String fileHeader){
         filePath = Parser.createSuitableFilePath(filePath, Optional.of(defaultDirectory));
-        createFileIfNotExists(filePath);
         try(FileWriter System = new FileWriter(filePath, isAppend);
             BufferedWriter dot = new BufferedWriter(System);
             PrintWriter out = new PrintWriter(dot))
@@ -86,22 +82,4 @@ public class Logger {
             System.out.println("Fail to append to " + filePath + " file due to: " + e);
         }
     }
-
-    /**
-     * Attempt to create a file (and directory) if the specified file is not found.  
-     * @param filePath the filePath (including the folder) to be written to. 
-     */
-    private static void createFileIfNotExists(String filePath){
-        Path path = Path.of(filePath);
-        Path directoryPath = path.getParent();
-        if (directoryPath == null) return;
-        try {
-            // Creates the directory and any nonexistent parent directories
-            Files.createDirectories(directoryPath); 
-        } catch (IOException e) {
-            System.out.println("Fail to create directory '" + directoryPath + "' due to: " + e);
-            return; 
-        }
-    }
-
 }
