@@ -29,8 +29,9 @@ public class Simulation {
      */
     public void setUpMalwareExpress(){
         String fetchedInputFile = CsvSaver.importCsvFromWeb();
-        String testFilePath = Parser.createSuitableFilePath(fetchedInputFile, Optional.empty());
-        malwareManager.setUpMalware(testFilePath, "formattedMalwareInfo.csv");
+        String dataFilePath = Parser.createSuitableFilePath(fetchedInputFile, Optional.empty());
+        IO.println("Read data from: " + dataFilePath); //on linux this is: datasets/recent.csv
+        malwareManager.setUpMalware(dataFilePath, "formattedMalwareInfo.csv");
     }
 
     /**

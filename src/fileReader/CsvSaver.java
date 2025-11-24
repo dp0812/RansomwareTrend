@@ -33,6 +33,9 @@ public class CsvSaver {
         try {
             Path targetDir = Paths.get(TARGET_DIRECTORY);
             Path targetFilePath = targetDir.resolve(FILE_NAME);
+            //create if needed:
+            System.out.println("Ensuring target directory exists: " + targetDir.toAbsolutePath());
+            Files.createDirectories(targetDir);
             //connect
             URI uriObject = new URI(FILE_URL);
             URL url = uriObject.toURL();

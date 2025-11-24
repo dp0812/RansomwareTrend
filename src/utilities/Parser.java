@@ -106,7 +106,6 @@ public final class Parser {
     /**
      * Produced a properly formated filePath, inside the default directory. If caller supply an Optional.empty() argument for directory, the default will be datasets. <p>
      * This method DOES NOT guarantee the correctness of the defaultDirectory parameter - that is on the caller. 
-     * Attempt to create a file (and directory) if the specified file is not found.  
      * @param optionalDefaultDirectory directory where the file is located. 
      * @param fileName fileName to be processed to standard format. 
      * @return A standard format file path which delimiter is dependent of the system running.
