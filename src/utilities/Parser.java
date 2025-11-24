@@ -1,9 +1,6 @@
 package utilities;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -121,19 +118,6 @@ public final class Parser {
         String[] tempDir = Parser.simpleParser(fileName, File.separatorChar);
         //if more than just the file name and file separator exist, override the default settings.
         if (tempDir.length > 1) defaultFilePath = fileName;
-
-        //Creation of the file if the file (and its path) does not exist. 
-        Path path = Path.of(defaultFilePath);
-        Path directoryPath = path.getParent();
-        if (directoryPath == null) return defaultFilePath;
-        try {
-            // Creates the directory and any nonexistent parent directories
-            Files.createDirectories(directoryPath); 
-        } catch (IOException e) {
-            System.out.println("Fail to create directory '" + directoryPath + "' due to: " + e);
-            return defaultFilePath; 
-        }
-
         return defaultFilePath;
     }
 }
