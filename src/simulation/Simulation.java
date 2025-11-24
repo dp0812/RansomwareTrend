@@ -2,6 +2,7 @@ package simulation;
 
 import java.util.Optional;
 
+import fileReader.CsvSaver;
 import utilities.Parser;
 import entities.CveCollections;
 import entities.MalwareCollections;
@@ -23,13 +24,25 @@ public class Simulation {
         malwareManager.setUpMalware(testFilePath, writeFileName);
     }
     /**
-     * Vanila user experience set up method. 
+     * Vanila user experience set up method (Stable version)
      * @param inputCsvFile the name of the input file, INCLUDING the file extension.
      */
     public void setUpMalwareDefault(String inputCsvFile){
         String testFilePath = Parser.createSuitableFilePath(inputCsvFile, Optional.empty());
         malwareManager.setUpMalware(testFilePath, "formattedMalwareInfo.csv");
     }
+
+    /**
+     * Vanila user experience set up method (WIP)
+     * Automatically fetch from the source. 
+     * Please do not run this more than 1 times every 5 minutes to comply with data provider policy. 
+     */
+    public void setUpMalwareExpress(){
+        String fetchedInputFile = CsvSaver.importCsvFromWeb();
+        String testFilePath = Parser.createSuitableFilePath(fetchedInputFile, Optional.empty());
+        malwareManager.setUpMalware(testFilePath, "formattedMalwareInfo.csv");
+    }
+
     public void run(){
         IO.println("Run.");
         processMalware();
