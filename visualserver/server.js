@@ -128,7 +128,7 @@ app.get('/api/data3', (req, res) => {
 
 // Description APIs
 app.get('/api/description1', (req, res) => {
-    const filePath = path.join(__dirname,'..', 'outputs', 'description1.csv');
+    const filePath = path.join(__dirname,'..', 'descriptions', 'description1.csv');
     processDescriptionCsv(filePath, (htmlContent) => {
         if (htmlContent) {
             res.send(htmlContent);
@@ -139,7 +139,7 @@ app.get('/api/description1', (req, res) => {
 });
 
 app.get('/api/description2', (req, res) => {
-    const filePath = path.join(__dirname,'..', 'outputs', 'description2.csv');
+    const filePath = path.join(__dirname,'..', 'descriptions', 'description2.csv');
     processDescriptionCsv(filePath, (htmlContent) => {
         if (htmlContent) {
             res.send(htmlContent);
@@ -150,7 +150,7 @@ app.get('/api/description2', (req, res) => {
 });
 
 app.get('/api/description3', (req, res) => {
-    const filePath = path.join(__dirname,'..', 'outputs', 'description3.csv');
+    const filePath = path.join(__dirname,'..', 'descriptions', 'description3.csv');
     processDescriptionCsv(filePath, (htmlContent) => {
         if (htmlContent) {
             res.send(htmlContent);
