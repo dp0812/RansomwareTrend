@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /**
- * This class pull the data from a hardcoded site in the field FILE_URL to create a csv file called recent.csv 
+ * This class pull the data from a hardcoded site in the field FILE_URL to create a csv file called recent.csv . 
  * For the class to behave properly, the datasets directory must exists inside the src directory. 
  * This class is designed to be system independent - the file path will work for both Linux and Windows. 
  */
@@ -20,8 +20,8 @@ public class CsvSaver {
     private static final String FILE_URL = "https://bazaar.abuse.ch/export/csv/recent";
     /** Default csv file name. */
     private static final String FILE_NAME = "recent.csv";
-    /** Default directory. */
-    private static final String TARGET_DIRECTORY = "src" + File.separator + "datasets";
+    /** Default directory. Make accessible to prevent relying certain methods in ReadMalwareInfo.java */
+    public static final String TARGET_DIRECTORY = "src" + File.separator + "datasets";
 
     /**
      * This fetch information from a site to build a csv file for data processing.
@@ -34,7 +34,7 @@ public class CsvSaver {
             Path targetDir = Paths.get(TARGET_DIRECTORY);
             Path targetFilePath = targetDir.resolve(FILE_NAME);
             //create if needed:
-            System.out.println("Ensuring target directory exists: " + targetDir.toAbsolutePath());
+            IO.println("Ensuring target directory exists: " + targetDir.toAbsolutePath());
             Files.createDirectories(targetDir);
             //connect
             URI uriObject = new URI(FILE_URL);

@@ -3,8 +3,7 @@
 
 ## 1. A description of the project: 
 Visualize data from a malware dataset with certain filtering in a somewhat organized manners: 
-- Filter 1: Top 10 of the following xyz type. 
-- Filter 2: Range of date Added.
+- Filter: Top 10 of the following xyz type. 
 ## 2. Reflection:
 - Why you selected this project (the need): Because a normal dataset has absolutely no meaningful way of letting a typical normal user a way of looking at it in a quick glance (only has csv, json, json schema and print view... which is basically larger csv).  
 - Why/how it matters in cybersecurity: This should be able to help keep track of some of the newer, recent spread of malware, and possibly provide some guidance to normal users.  

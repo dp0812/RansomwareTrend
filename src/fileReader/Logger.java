@@ -99,7 +99,7 @@ public class Logger {
             // Creates the directory and any nonexistent parent directories
             Files.createDirectories(directoryPath); 
         } catch (IOException e) {
-            System.out.println("Fail to create directory '" + directoryPath + "' due to: " + e);
+            IO.println("Fail to create directory '" + directoryPath + "' due to: " + e);
             return; 
         }
     }

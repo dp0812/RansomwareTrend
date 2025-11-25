@@ -1,21 +1,18 @@
 package simulation;
 
-import java.util.Optional;
-
 import fileReader.CsvSaver;
-import utilities.Parser;
-import entities.CveCollections;
 import entities.MalwareCollections;
+
 /**
  * This class provide easy access to process the data and outputs them in file, with minimal user input required. 
  * Calling the run method itself is enough. 
  */
 public class Simulation {
+    /** This is an interface that simplify the underlying process of analyzing malware. */
     MalwareCollections malwareManager = new MalwareCollections();
-    CveCollections cveManager = new CveCollections();
 
     public Simulation(){}
-
+    /** Calling this method to set up and run every Java source code module. */
     public void run(){
         IO.println("Run.");
         setUpMalwareExpress();
@@ -29,9 +26,7 @@ public class Simulation {
      */
     public void setUpMalwareExpress(){
         String fetchedInputFile = CsvSaver.importCsvFromWeb();
-        String dataFilePath = Parser.createSuitableFilePath(fetchedInputFile, Optional.empty());
-        IO.println("Read data from: " + dataFilePath); //on linux this is: datasets/recent.csv
-        malwareManager.setUpMalware(dataFilePath, "formattedMalwareInfo.csv");
+        malwareManager.setUpMalware(fetchedInputFile, "formattedMalwareInfo.csv");
     }
 
     /**
@@ -44,16 +39,5 @@ public class Simulation {
         malwareManager.signatureOccurenceReport("signatureReport.csv");
         malwareManager.fileTypeOccurenceReport("fileTypeReport.csv");
         malwareManager.mimeTypeOccurenceReport("mimeTypeReport.csv");
-    }
-
-    /**
-     * This is only kept for legacy reason. 
-     * @Deprecated  
-     * @param testFileName
-     * @param writeFileName
-     */
-    public void setUpCve(String testFileName, String writeFileName){
-        String testFilePath = Parser.createSuitableFilePath(testFileName, Optional.empty());
-        cveManager.setUpCve(testFilePath, writeFileName);
     }
 }
