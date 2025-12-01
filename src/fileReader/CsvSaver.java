@@ -1,6 +1,5 @@
 package fileReader;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -21,7 +20,7 @@ public class CsvSaver {
     /** Default csv file name. */
     private static final String FILE_NAME = "recent.csv";
     /** Default directory. Make accessible to prevent relying certain methods in ReadMalwareInfo.java */
-    public static final String TARGET_DIRECTORY = "src" + File.separator + "datasets";
+    public static final String TARGET_DIRECTORY = "datasets";
 
     /**
      * This fetch information from a site to build a csv file for data processing.
